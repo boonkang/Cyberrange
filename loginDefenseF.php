@@ -34,7 +34,7 @@ function getMemberDataAsXML($conn_school) {
 
 /* Please dont change this area !!! */
 
-
+/* Try to implement the prevention solution at here */
 
 function validateUser($xml, $studentId, $password) {
 
@@ -42,14 +42,13 @@ function validateUser($xml, $studentId, $password) {
     return count($xpath) > 0 ? $xpath[0] : false;
 }
 
+/* Try to implement the prevention solution at here */
+
 /* Please dont change this area !!! */
-// Login function
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // No input validation
     $student_id = $_POST['student_id'];
     $password = $_POST['password'];
     
-    // Fetch member data from database and convert to XML
     $xml = getMemberDataAsXML($conn_school);
     
     if ($xml === false) {
@@ -57,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $student = validateUser($xml, $student_id, $password);
         if ($student) {
-            // Display "Welcome" on successful login
             echo "Welcome, " . htmlspecialchars($student_id) . "!";
         } else {
             echo "Invalid Student ID or Password.";
@@ -65,10 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-/* Please dont change this area !!! */
-
-// Close the `school` database connection after all operations
 $conn_school->close();
+
+/* Please dont change this area !!! */
 ?>
 
 <!--** Dont Delete this below part -->
@@ -108,7 +105,7 @@ $conn_school->close();
                 </div>
             </div>
         </div>
-        <!-- Sign In End -->
+    
     </div>
 </body>
 </html>
