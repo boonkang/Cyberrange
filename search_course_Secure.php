@@ -4,20 +4,19 @@ include_once '../utility/header.php';
 include_once '../utility/sidebar.php';
 include_once '../utility/connection.php';
 
-// Number of subjects to show per page
+if (!isset($_SESSION['student_id'])) {
+    $_SESSION['student_id'] = 'S0001';
+}
+
 $subjectsPerPage = 10;
 
-// Get the current page number from the URL, if not present default to 1
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($page < 1) $page = 1;
 
-// Get the search query from the form or URL (to preserve across pagination)
 $searchQuery = isset($_POST['search']) ? trim($_POST['search']) : (isset($_GET['search']) ? trim($_GET['search']) : '');
 
-// Escape special characters for safe XPath queries
 $searchQueryEscaped = htmlspecialchars($searchQuery, ENT_QUOTES, 'UTF-8');
 
-// Calculate the offset for the XML query pagination
 $offset = ($page - 1) * $subjectsPerPage;
 
 function isSuspiciousQuery($searchQuery) {
